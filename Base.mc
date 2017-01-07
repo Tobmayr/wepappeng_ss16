@@ -142,7 +142,7 @@
 </div>
 </section>
 
-    <& portfolio.mi, email=> 'feedback@salzamt.at' &>
+    <& portfolio.mi, email => 'feedback@salzamt.at' &>
 
     <& contact.mi &>
 
