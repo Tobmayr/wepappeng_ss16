@@ -81,8 +81,8 @@
         <div class="header-content-inner">
             <h1 id="homeHeading">Wir verschönern Ihre Software</h1>
             <hr>
-            <p>Ihr Studium heißt Software Engineering, nicht Bunte Buttons!</p>
-            <p>Wir verschönern Ihre Software und kümmern uns um Ihr Front-End</p>
+            <p>Ihr Studium heißt Software Engineering, nicht Bunte Buttons!
+            Wir verschönern Ihre Software und kümmern uns um Ihr Front-End</p>
             <a href="#services" class="btn btn-primary btn-xl page-scroll">Was wir anbieten</a>
         </div>
     </div>
@@ -142,123 +142,9 @@
 </div>
 </section>
 
-<section class="no-padding" id="portfolio">
-<div class="container-fluid">
-<div class="row no-gutter popup-gallery">
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/1.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/1.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/2.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/2.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/3.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/3.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/4.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/4.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/5.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/5.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-lg-4 col-sm-6">
-    <a href="static/img/portfolio/fullsize/6.jpg" class="portfolio-box">
-        <img src="static/img/portfolio/thumbnails/6.jpg" class="static/img-responsive" alt="">
-        <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-                <div class="project-category text-faded">
-                    Category
-                </div>
-                <div class="project-name">
-                    Project Name
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
-</div>
-</div>
-</section>
+    <& portfolio.mi, email=> 'feedback@salzamt.at', phone => '0664 / 123 456 789' &>
 
-
-<section id="contact">
-<div class="container">
-<div class="row">
-<div class="col-lg-8 col-lg-offset-2 text-center">
-    <h2 class="section-heading">Kontaktieren Sie uns</h2>
-    <hr class="primary">
-    <p>Wir finden auch für Sie die maßgeschneidete Lösung. Schicken Sie uns einfach ein E-Mail oder rufen Sie uns an. Wir haben immer ein offenes Ohr.</p>
-</div>
-<div class="col-lg-4 col-lg-offset-2 text-center">
-    <i class="fa fa-phone fa-3x sr-contact"></i>
-    <p>123-456-6789</p>
-</div>
-<div class="col-lg-4 text-center">
-    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-    <p><a href="#">email@salzamt.at</a></p>
-</div>
-</div>
-</div>
-
+    <& contact.mi &>
 
 <section id="footer">
 <div class="row">
@@ -266,7 +152,6 @@
     <& footer.mi, grp => '06' &>
 </div></div>
 </section>
-    </section>
 
     <!-- jQuery -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
