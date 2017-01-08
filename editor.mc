@@ -6,8 +6,10 @@
   has 'metatext' => (default => "Kein Metatext eingegeben");
   has 'Save';
   has 'Preview';
+  has 'Delete';
   has 'insert' => (default => 0);
   has 'parentid';
+  has 'infobox' => (default => '');
 </%class>
 <%method maintitle>
 Seite Bearbeiten
@@ -27,10 +29,13 @@ Seite Bearbeiten
 </div>
 </header>
 
+<% $.infobox %>
+
 <div class="row">
 <div class="col-lg-1"></div>
 <div class="col-lg-10">
 <h2>
+
 % if (defined($.docid) && ($.insert==0)) {
 Dokument <% $.docid %> editieren
 % } else {
@@ -38,18 +43,17 @@ Dokument <% $.docid %> editieren
 % }
 </h2>
 % if (length($msg)) {
-<p style="color:red;font-size:10px;"><% $msg %></p>
+    <div class="alert alert-warning">
+  <strong><% $msg %>
+</div>
 % }
 <form name="editform" method="post" enctype="application/x-www-form-urlencoded">
 
 
 <input type="hidden" name="insert" value="<% $.insert %>">
 
+<input type="hidden" name="docid" value="<% $.docid %>">
 
-<div class="form-group">
-<label for="docid">ID</label>
-<input readonly name="docid" value="<% $.docid %>" class="form-control">
-</div>
 
 <div class="form-group">
 <label for="title">Titel</label>
@@ -102,6 +106,10 @@ Dokument <% $.docid %> editieren
 
 <div class="form-group">
 <input type="submit" class="btn btn-primary btn-md" value="Vorschau anzeigen" name="Preview">
+
+<input type="submit" class="btn btn-primary btn-md" value="Seite löschen" name="Delete">
+
+
 </div>
 
 <div class="form-group">
@@ -145,7 +153,7 @@ use Data::Dumper;
 
 my $dbh = Ws16::DBI->dbh();
 
-my $msg = "Willkommen im Backend";
+my $msg = "";
 my $alldocs = "";
 my %docTitleAndIds = ('0', 'top level document');
 
@@ -157,6 +165,12 @@ while (my $res = $sth->fetchrow_hashref()) {
 }
 if ($.Preview){
   $m->visit('/wae06/view', isPreview => 1, content => $.content, title => 'PREVIEW - ' . $.title, parentid => $.parentid, header => $.header, metatext => $.metatext );
+}
+
+if($.Delete){
+    my $sth = $dbh->prepare("DELETE FROM wae06_document WHERE id = ?");
+    $sth->execute($.docid);
+    $m->go('/wae06/editor', infobox => '<div class="alert alert-success"><strong>Löschen erfolgreich!</strong> Die Seite mit der ID ' .  $.docid . ' wurde entfernt.</div>');
 }
 
 if ($.Save) {
@@ -191,4 +205,5 @@ if ($.Save) {
   $.docid($res->{maxdocid}+1);
   $.insert(1);
 }
+
 </%init>
