@@ -1,56 +1,63 @@
 <%class>
-	has 'docid';
+    has 'docid';
   has 'title';
-  has 'content' => (default => "<font face=Verdana>bitte hier den Text eingeben.\n</font>\n");
+  has 'content' => (default => "<font face=Verdana> Bitte hier den Text eingeben.\n</font>\n");
   has 'metatext';
   has 'Save';
   has 'insert' => (default => 0);
   has 'parentid';
 </%class>
+<%method maintitle>
+Seite Bearbeiten
+</%method>
 
+<header style="min-height:300px;">
+<div class="header-content">
+       <div class="header-content-inner">
+      <h1>Editor</h1>
+      <p>Editieren Sie hier ganz einfach das Portfolio</p>
+  </div>
+</div>
+</header>
+
+<div class="row">
+<div class="col-lg-1"></div>
+<div class="col-lg-10">
 <h2>
 % if (defined($.docid) && ($.insert==0)) {
 Dokument <% $.docid %> editieren
 % } else {
-Neues Dokument anlegen
+<h1>Neues Dokument anlegen</h1>
 % }
 </h2>
 % if (length($msg)) {
 <p style="color:red;font-size:10px;"><% $msg %></p>
 % }
-<form name="editform"
-method="post" enctype="application/x-www-form-urlencoded">
+<form name="editform" method="post" enctype="application/x-www-form-urlencoded">
 
 <input type="hidden" name="docid" value="<% $.docid %>">
 <input type="hidden" name="insert" value="<% $.insert %>">
 
-<TABLE WIDTH="100%" CELLSPACING=1 CELLPADDING=4 BORDER=0>
-<COLGROUP>
-<COL ALIGN="right" VALIGN="top">
-<COL ALIGN="left">
-</COLGROUP>
-<TR>
-<TD>Titel:</TD>
-<TD><input type="text" name="title" value="<% $.title %>" size="50" /></TD> <!-- Filter |h ?? -->
-</TR>
+<div class="form-group">
+<label for="title">Titel</label>
+<input type="text" name="title" class="form-control" value="<% $.title %>" size="50" /></TD> <!-- Filter |h ?? -->
+</div>
 
-<TR>
-<TD>Parent-ID:</TD>
-<TD>
+<div class="form-group">
+<label for="parentid">Parent-ID
 <%doc>
 <%  $cgi->popup_menu(-name      =>'parentid',
                        -values    => [ sort keys %docTitleAndIds ],
                        -default   => $parentid,
                        -labels    => \%docTitleAndIds)
   %> aktuell: <% $docTitleAndIds{$parentid} %>
-</%doc>
-  <input type="text" name="parentid" value="<% $.parentid %>" size="3" />
+</%doc></label>
+  <input type="text" name="parentid" class="form-control" value="<% $.parentid %>" size="3" />
+</div>
 
-</TD>
-</TR>
-<TR>
-<TD ALIGN=left COLSPAN=2>
-  <textarea name="content" id="content"><% $.content %></textarea>
+<div class="form-group">
+<label for="content">Seiteninhalt</label>
+  <textarea name="content" class="form-control" rows="10" id="content"><% $.content %></textarea>
 <script>
 	// Replace the <textarea id="content"> with a CKEditor
 	// instance, using default configuration.
@@ -59,24 +66,17 @@ method="post" enctype="application/x-www-form-urlencoded">
 		height  : '400px'
 	});
 </script>
-<BR>
-</TD>
-</TR>
+</div>
 
-<TR>
-<TD COLSPAN=2 ALIGN=center>
-<BR>
-<input type="submit" value="&Auml;nderungen speichern" name="Save">
+<input type="submit" class="btn btn-primary btn-md" value="&Auml;nderungen speichern" name="Save">
 &nbsp;&nbsp;&nbsp;
-<input type="reset" value="&Auml;nderungen verwerfen" name="Cancel"> <!-- onClick="window.close()" -->
-<BR>
-<BR>
-</TD>
-</TR>
-</TABLE>
+<input type="reset" class="btn btn-primary btn-md" value="&Auml;nderungen verwerfen" name="Cancel"> <!-- onClick="window.close()" -->
 
-</form>
+</div>
+<div class="col-lg-12" style="margin-top:5.0em;"></div>
 
+<div class="col-lg-1"></div>
+</div>
 <%init>
 use Data::Dumper;
 
@@ -92,15 +92,15 @@ while (my $res = $sth->fetchrow_hashref()) {
 }
 
 if ($.Save) {
-# Speichern wurde gedrückt...
+# Speichern wurde gedrï¿½ckt...
   if ($.insert == 1) {
-  # Datensatz aus Formularfeldern in Datenbank einfügen
+  # Datensatz aus Formularfeldern in Datenbank einfï¿½gen
     my $sth = $dbh->prepare("INSERT INTO schranz_cms (docid,content,metatext,title,parent,created) values (?,?,?,?,?,NOW())");
     $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid);
     $msg = "Datensatz ". $.docid ." neu in DB aufgenommen.".$sth->rows();
     $.insert = 0;
   } else {
-  # Datensatz in Datenbank ändern
+  # Datensatz in Datenbank ï¿½ndern
     my $sth = $dbh->prepare("UPDATE schranz_cms SET content = ?, title = ?, parent = ? WHERE docid = ?");
     $sth->execute($.content,$.title,$.parentid,$.docid);
     $msg = "Datensatz " . $.docid ." in DB ver&auml;ndert.".$sth->rows();
