@@ -4,6 +4,7 @@
   has 'header';
   has 'content' => (default => "<font face=Verdana> Bitte hier den Text eingeben.\n</font>\n");
   has 'metatext' => (default => "Kein Metatext eingegeben");
+  has 'design' => (default => "default");
   has 'Save';
   has 'Preview';
   has 'Delete';
@@ -16,8 +17,8 @@ Seite Bearbeiten
 </%method>
 <%method headerincludes>
 <!-- include summernote bootstrap WYSIWYG Editor css/js-->
-<link href="static/summernote.css" rel="stylesheet">
-<script src="static/summernote.min.js"></script>
+    <link href="static/summernote.css" rel="stylesheet">
+    <script src="static/summernote.min.js"></script>
 </%method>
 
 <header style="min-height:300px;">
@@ -50,9 +51,9 @@ Dokument <% $.docid %> editieren
 <form name="editform" method="post" enctype="application/x-www-form-urlencoded">
 
 
-<input type="hidden" name="insert" value="<% $.insert %>">
+<input type="hidden" name="insert" value="<% $.insert %>" />
 
-<input type="hidden" name="docid" value="<% $.docid %>">
+<input type="hidden" name="docid" value="<% $.docid %>" />
 
 
 <div class="form-group">
@@ -103,6 +104,19 @@ Dokument <% $.docid %> editieren
   </script>
 
 </div>
+
+ <div class="form-group">
+  <label for="design">Page-Design:</label>
+  <select class="form-control" id="design" name="design">
+    <option value="default">Standardmäßiges Design</option>
+    <option value="dunkel">Dunkles Design</option>
+    <option value="bunt">Buntes Design</option>
+  </select>
+</div>
+<script>
+    $('#design').val("<% $.design %>");
+</script>
+
 
 <div class="form-group">
 <input type="submit" class="btn btn-primary btn-md" value="Vorschau anzeigen" name="Preview">
@@ -177,25 +191,26 @@ if ($.Save) {
 # Speichern wurde gedrückt...
   if ($.insert == 1) {
   # Datensatz aus Formularfeldern in Datenbank einfügen
-    my $sth = $dbh->prepare("INSERT INTO wae06_document (id,content,metatext,title,parent,header,timestamp) values (?,?,?,?,?,?,NOW())");
-    $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid,$.header);
+    my $sth = $dbh->prepare("INSERT INTO wae06_document (id,content,metatext,title,parent,header,design,timestamp) values (?,?,?,?,?,?,?,NOW())");
+    $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid,$.header,$.design);
     $msg = "Die Seite ". $.docid ." wurde neu in DB aufgenommen.".$sth->rows();
     $.insert(0);
   } else {
   # Datensatz in Datenbank ändern
-    my $sth = $dbh->prepare("UPDATE wae06_document SET content = ?, title = ?, parent = ?, header = ? WHERE id = ?");
-    $sth->execute($.content,$.title,$.parentid,$.header,$.docid);
+    my $sth = $dbh->prepare("UPDATE wae06_document SET content = ?, title = ?, parent = ?, header = ?, design = ? WHERE id = ?");
+    $sth->execute($.content,$.title,$.parentid,$.header,$.design,$.docid);
     $msg = "Datensatz " . $.docid ." in DB ver&auml;ndert.".$sth->rows();
   }
 } elsif ($.docid) {
 # id erkannt, daten aus Datenbank lesen
-  my $sth = $dbh->prepare("SELECT id, title, content, timestamp, parent, metatext, header from wae06_document WHERE id = ?");
+  my $sth = $dbh->prepare("SELECT id, title, content, timestamp, parent, metatext, design, header from wae06_document WHERE id = ?");
   $sth->execute($.docid);
   my $res = $sth->fetchrow_hashref();
   $.content($res->{content} || $.content);
   $.title($res->{title});
   $.parentid($res->{parent});
   $.header($res->{header});
+  $.design($res->{design});
   $msg = "Datensatz " . $.docid . " aus DB gelesen.".((defined($res) && scalar(keys(%$res)))?1:0);
 } else {
 # keine ID, neues Dokument erstellen
