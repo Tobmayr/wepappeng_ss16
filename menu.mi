@@ -4,7 +4,7 @@
 % foreach my $item (@items) {
          <li class="dropdown-submenu">
                 <a tabindex="-1" href="/wae06/view?docid=<% $item->{id} %>"><% $item->{title} %></a>
-                <ul class="dropdown-menu" % foreach my $item (@items) {
+                <ul class="dropdown-menu" >
                   <li><a tabindex="-1" href="#">Second level</a></li>
                   <li class="dropdown-submenu">
                     <a href="#">Even More..</a>
