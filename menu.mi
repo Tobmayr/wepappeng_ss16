@@ -1,12 +1,39 @@
 
-
+% foreach my $item (@items) {
 <li>
-    <a class="page-scroll" href="/wae06/editor?docid=1">Menu1</a>
+    <a class="page-scroll" href="/wae06/view?docid=<% $item->{l1_id} %>"><% $item->{l1_title} %></a>
 </li>
+% }
+<%init>
+    use Data::Dumper;
+    my $dbh = Ws16::DBI->dbh();
+    my $ps = $dbh->prepare( "SELECT t1.id as l1_id, t1.title AS l1_title, t2.id as l2_id,t2.title AS l2_title, t3.id AS l3_id, t3.title as l3_title
+                            FROM  `wae06_document` AS t1
+                            LEFT JOIN  `wae06_document` AS t2 ON t2.parent = t1.id
+                            LEFT JOIN  `wae06_document` AS t3 ON t3.parent = t2.id
+                            WHERE t1.parent=0" );
+    $ps->execute();
+    my @items;
+    while (my $hr = $ps->fetchrow_hashref) {
+        push(@items, $hr);
+    }
+</%init>
+% foreach my $item (@items) {
 <li>
-    <a class="page-scroll" href="/wae06/editor?docid=2">Menu 2</a>
+    <a class="page-scroll" href="/wae06/view?docid=<% $item->{l1_id} %>"><% $item->{l1_title} %></a>
 </li>
-<li>
-    <a class="page-scroll" href="/wae06/editor?docid=3">Menu 3</a>
-</li>
-
+% }
+<%init>
+    use Data::Dumper;
+    my $dbh = Ws16::DBI->dbh();
+    my $ps = $dbh->prepare( "SELECT t1.id as l1_id, t1.title AS l1_title, t2.id as l2_id,t2.title AS l2_title, t3.id AS l3_id, t3.title as l3_title
+                            FROM  `wae06_document` AS t1
+                            LEFT JOIN  `wae06_document` AS t2 ON t2.parent = t1.id
+                            LEFT JOIN  `wae06_document` AS t3 ON t3.parent = t2.id
+                            WHERE t1.parent=0" );
+    $ps->execute();
+    my @items;
+    while (my $hr = $ps->fetchrow_hashref) {
+        push(@items, $hr);
+    }
+</%init>
