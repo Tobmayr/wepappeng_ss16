@@ -37,8 +37,6 @@
 <!-- Theme CSS -->
 <link href="static/css/creative.min.css" rel="stylesheet">
 
-<!-- Menu CSS -->
-<link href="static/css/multidrop.css" rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -48,9 +46,7 @@
 <!-- jQuery -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
 
-
 <% $.headerincludes %>
-
 
 </head>
 
