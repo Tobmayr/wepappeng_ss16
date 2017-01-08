@@ -1,0 +1,25 @@
+% foreach my $product (@products) {
+
+<div class="col-lg-3 col-md-6 text-center" style="margin-bottom:20px;">
+<div class="service-box">
+<a href="#">
+    <i class="fa fa-4x <% $product->{header} %> text-primary sr-icons"></i>
+   <h3><% $product->{title} %></h3>
+</a>
+</div>
+</div>
+
+% }
+
+<%init>
+    use Data::Dumper;
+    my $dbh = Ws16::DBI->dbh();
+
+    my $ps = $dbh->prepare("select id, title, header from wae06_document");
+    $ps->execute();
+
+    my @products;
+    while (my $hr = $ps->fetchrow_hashref) {
+        push(@products, $hr);
+    }
+</%init>

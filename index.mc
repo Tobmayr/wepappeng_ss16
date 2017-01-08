@@ -37,34 +37,9 @@ Landing-Page
 </div>
 <div class="container">
 <div class="row">
-<div class="col-lg-3 col-md-6 text-center">
-   <div class="service-box">
-       <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
-       <h3>Nr 1</h3>
-       <p class="text-muted">Seitentext Nr1</p>
-   </div>
-</div>
-<div class="col-lg-3 col-md-6 text-center">
-   <div class="service-box">
-       <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
-       <h3>Nr 2</h3>
-       <p class="text-muted">Seitentext Nr2</p>
-   </div>
-</div>
-<div class="col-lg-3 col-md-6 text-center">
-   <div class="service-box">
-       <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
-       <h3>Nr 3</h3>
-       <p class="text-muted">Seitentext Nr3</p>
-   </div>
-</div>
-<div class="col-lg-3 col-md-6 text-center">
-   <div class="service-box">
-       <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
-       <h3>Nr 4</h3>
-       <p class="text-muted">Seitentext Nr 4</p>
-   </div>
-</div>
+
+<& productlist.mi &>
+
 </div>
 </div>
 </section>
