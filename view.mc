@@ -9,6 +9,9 @@
 </%class>
 <%method extramenu>
     <& menu.mi &>
+    <li>
+        <a class="page-scroll" href="/wae06/editor?docid=<% $.docid %>"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Diese Seite bearbeiten</a>
+    </li>
 </%method>
 <%method maintitle>
 Portfolio - <% $.title %>
