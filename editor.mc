@@ -36,8 +36,13 @@ Dokument <% $.docid %> editieren
 % }
 <form name="editform" method="post" enctype="application/x-www-form-urlencoded">
 
-<input type="hidden" name="docid" value="<% $.docid %>">
+
 <input type="hidden" name="insert" value="<% $.insert %>">
+
+<div class="form-group">
+<label for="docid">ID</label>
+<input readonly name="docid" value="<% $.docid %>" class="form-control">
+</div>
 
 <div class="form-group">
 <label for="title">Titel</label>
@@ -51,6 +56,11 @@ Dokument <% $.docid %> editieren
 
 <div class="form-group">
 <label for="parentid">Parent-ID
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">
+  Alle verfügbaren Seiten inkl. IDs ansehen
+</button>
 <%doc>
 <%  $cgi->popup_menu(-name      =>'parentid',
                        -values    => [ sort keys %docTitleAndIds ],
@@ -83,18 +93,46 @@ Dokument <% $.docid %> editieren
 
 <div class="col-lg-1"></div>
 </div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Alle verfügbaren Dokumente</h4>
+      </div>
+      <div class="modal-body">
+          <% $alldocs %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <%init>
 use Data::Dumper;
 
 my $dbh = Ws16::DBI->dbh();
 
 my $msg = "Willkommen im Backend";
+my $alldocs = "";
 my %docTitleAndIds = ('0', 'top level document');
 
 my $sth = $dbh->prepare("SELECT id, title from wae06_document");
 $sth->execute();
 while (my $res = $sth->fetchrow_hashref()) {
-  $docTitleAndIds{$res->{docid}} = $res->{title};
+  $docTitleAndIds{$res->{id}} = $res->{title};
+  $alldocs .= "ID der Seite: " . $res->{id}  . " - Titel: " . $res->{title} . "<br />";
 }
 
 if ($.Save) {
