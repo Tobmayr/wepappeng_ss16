@@ -6,12 +6,11 @@
     has 'metatext';
     has 'parentid';
 </%class>
-
+<%method extramenu>
+    <& menu.mi &>
+</%method>
 <%method maintitle>
 Portfolio - <% $.title %>
-</%method>
-<%method extramenu>
-
 </%method>
 
 <header style="min-height:50px;">
@@ -53,8 +52,6 @@ Portfolio - <% $.title %>
     use Data::Dumper;
 
     my $dbh = Ws16::DBI->dbh();
-
-
     if($.docid){
         # id erkannt, daten aus Datenbank lesen
         my $sth = $dbh->prepare("SELECT id, title, content, timestamp, parent, metatext, header from wae06_document WHERE id = ?");
