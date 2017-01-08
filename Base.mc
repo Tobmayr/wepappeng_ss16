@@ -1,6 +1,8 @@
 <%class>
     has 'maintitle' => (default => 'WAE Group 06');
     has 'extramenu' => (default => '');
+    has 'headerincludes' => (default => '');
+    has 'footerincludes' => (default => '');
 </%class>
 
 <%augment wrap>
@@ -21,28 +23,42 @@
       <title><% $.maintitle %></title>
 % }}
 
+    <!-- jQuery -->
+     <script src="static/vendor/jquery/jquery.min.js"></script>
 
-<!-- Bootstrap Core CSS -->
-<link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Plugin JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+     <script src="static/vendor/scrollreveal/scrollreveal.min.js"></script>
+     <script src="static/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-<!-- Custom Fonts -->
-<link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+     <!-- Theme JavaScript -->
+     <script src="static/js/creative.min.js"></script>
 
-<!-- Plugin CSS -->
-<link href="static/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+      <!-- Bootstrap Core JavaScript -->
+     <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- Theme CSS -->
-<link href="static/css/creative.min.css" rel="stylesheet">
+      <!-- Bootstrap Core CSS -->
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <!-- Custom Fonts -->
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
+    <!-- Plugin CSS -->
+    <link href="static/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="static/css/creative.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <% $.headerincludes %>
 
 </head>
 
@@ -85,19 +101,7 @@
 </section>
 </aside>
 
-    <!-- jQuery -->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="static/vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="static/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <!-- Theme JavaScript -->
-    <script src="static/js/creative.min.js"></script>
+    <% $.footerincludes %>
 
 </body>
 

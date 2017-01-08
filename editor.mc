@@ -12,6 +12,11 @@
 <%method maintitle>
 Seite Bearbeiten
 </%method>
+<%method headerincludes>
+<!-- include summernote bootstrap WYSIWYG Editor css/js-->
+<link href="static/summernote.css" rel="stylesheet">
+<script src="static/summernote.min.js"></script>
+</%method>
 
 <header style="min-height:300px;">
 <div class="header-content">
@@ -52,7 +57,11 @@ Dokument <% $.docid %> editieren
 </div>
 
 <div class="form-group">
-<label for="title">Header</label>
+<label for="title">Header-Icon Tag (zB: fa-book)
+
+<button type="button" class="btn btn-primary btn-sm" style="margin-left:20px;" onclick="location.href='http://fontawesome.io/cheatsheet/';">Zum Cheatsheet</button>
+
+</label>
 <input type="text" name="header" class="form-control" value="<% $.header %>" size="50" />
 </div>
 
@@ -75,15 +84,20 @@ Dokument <% $.docid %> editieren
 
 <div class="form-group">
 <label for="content">Seiteninhalt</label>
-  <textarea name="content" class="form-control" rows="10" id="content"><% $.content %></textarea>
-<script>
-	// Replace the <textarea id="content"> with a CKEditor
-	// instance, using default configuration.
-	CKEDITOR.replace('content',{
-		width   : '560px',
-		height  : '400px'
-	});
-</script>
+
+<textarea id="content" name="content"><% $.content %></textarea>
+
+  <script type="text/javascript">
+  $( document ).ready(function() {
+    $('#content').summernote({
+  height: 300,                 // set editor height
+  minHeight: null,             // set minimum height of editor
+  maxHeight: null,             // set maximum height of editor
+  focus: true                  // set focus to editable area after initializing summernote
+});
+});
+  </script>
+
 </div>
 
 <div class="form-group">
