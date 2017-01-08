@@ -74,8 +74,8 @@
     <% inner() %>
 
 
-<aside class="bg-dark">
-<section id="footer">
+<aside class="bg-dark" style="margin-top:50px;">
+<section id="footer" style="padding:0px;">
 <div class="row">
 <div class="col-lg-12 text-center">
     <& footer.mi, grp => '06' &>

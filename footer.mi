@@ -1,4 +1,4 @@
 <%class>
 has 'grp';
 </%class>
-<div>This page by WAE group <% $.grp %>;</div>
+<div>Diese Seite wurde im Rahmen der Lehrveranstaltung Web Application Engineering & Content Management von Gruppe <% $.grp %> erstellt.</div>
