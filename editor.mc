@@ -1,8 +1,9 @@
 <%class>
-    has 'docid';
+  has 'docid';
   has 'title';
+  has 'header';
   has 'content' => (default => "<font face=Verdana> Bitte hier den Text eingeben.\n</font>\n");
-  has 'metatext';
+  has 'metatext' => (default => "Kein Metatext eingegeben");
   has 'Save';
   has 'insert' => (default => 0);
   has 'parentid';
@@ -40,7 +41,12 @@ Dokument <% $.docid %> editieren
 
 <div class="form-group">
 <label for="title">Titel</label>
-<input type="text" name="title" class="form-control" value="<% $.title %>" size="50" /></TD> <!-- Filter |h ?? -->
+<input type="text" name="title" class="form-control" value="<% $.title %>" size="50" /> <!-- Filter |h ?? -->
+</div>
+
+<div class="form-group">
+<label for="title">Header</label>
+<input type="text" name="header" class="form-control" value="<% $.header %>" size="50" />
 </div>
 
 <div class="form-group">
@@ -82,41 +88,42 @@ use Data::Dumper;
 
 my $dbh = Ws16::DBI->dbh();
 
-my $msg = "Welcome to the WCM content editor.";
+my $msg = "Willkommen im Backend";
 my %docTitleAndIds = ('0', 'top level document');
 
-my $sth = $dbh->prepare("SELECT docid, title from schranz_cms");
+my $sth = $dbh->prepare("SELECT id, title from wae06_document");
 $sth->execute();
 while (my $res = $sth->fetchrow_hashref()) {
   $docTitleAndIds{$res->{docid}} = $res->{title};
 }
 
 if ($.Save) {
-# Speichern wurde gedr�ckt...
+# Speichern wurde gedrückt...
   if ($.insert == 1) {
-  # Datensatz aus Formularfeldern in Datenbank einf�gen
-    my $sth = $dbh->prepare("INSERT INTO schranz_cms (docid,content,metatext,title,parent,created) values (?,?,?,?,?,NOW())");
-    $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid);
-    $msg = "Datensatz ". $.docid ." neu in DB aufgenommen.".$sth->rows();
-    $.insert = 0;
+  # Datensatz aus Formularfeldern in Datenbank einfügen
+    my $sth = $dbh->prepare("INSERT INTO wae06_document (id,content,metatext,title,parent,header,timestamp) values (?,?,?,?,?,?,NOW())");
+    $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid,$.header);
+    $msg = "Die Seite ". $.docid ." wurde neu in DB aufgenommen.".$sth->rows();
+    $.insert(0);
   } else {
-  # Datensatz in Datenbank �ndern
-    my $sth = $dbh->prepare("UPDATE schranz_cms SET content = ?, title = ?, parent = ? WHERE docid = ?");
-    $sth->execute($.content,$.title,$.parentid,$.docid);
+  # Datensatz in Datenbank ändern
+    my $sth = $dbh->prepare("UPDATE wae06_document SET content = ?, title = ?, parent = ?, header = ? WHERE id = ?");
+    $sth->execute($.content,$.title,$.parentid,$.header,$.docid);
     $msg = "Datensatz " . $.docid ." in DB ver&auml;ndert.".$sth->rows();
   }
 } elsif ($.docid) {
 # id erkannt, daten aus Datenbank lesen
-  my $sth = $dbh->prepare("SELECT docid, title, content, created, parent, metatext from schranz_cms WHERE docid = ?");
+  my $sth = $dbh->prepare("SELECT id, title, content, timestamp, parent, metatext, header from wae06_document WHERE id = ?");
   $sth->execute($.docid);
   my $res = $sth->fetchrow_hashref();
   $.content($res->{content} || $.content);
   $.title($res->{title});
   $.parentid($res->{parent});
+  $.header($res->{header});
   $msg = "Datensatz " . $.docid . " aus DB gelesen.".((defined($res) && scalar(keys(%$res)))?1:0);
 } else {
 # keine ID, neues Dokument erstellen
-  my $sth = $dbh->prepare("SELECT max(docid) as maxdocid FROM schranz_cms");
+  my $sth = $dbh->prepare("SELECT max(id) as maxdocid FROM wae06_document");
   $sth->execute();
   my $res = $sth->fetchrow_hashref();
   $.docid($res->{maxdocid}+1);
