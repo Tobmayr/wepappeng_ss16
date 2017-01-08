@@ -1,10 +1,11 @@
 <%class>
-    has 'docid';
+    has 'docid' => (default => -1);
     has 'title';
     has 'header';
     has 'content';
     has 'metatext';
     has 'parentid';
+    has 'isPreview' => (default => 0);
 </%class>
 <%method extramenu>
     <& menu.mi &>
@@ -49,10 +50,10 @@ Portfolio - <% $.title %>
 
 
 <%init>
+if($.isPreview != 1) {
     use Data::Dumper;
-
     my $dbh = Ws16::DBI->dbh();
-    if($.docid){
+    if ($.docid) {
         # id erkannt, daten aus Datenbank lesen
         my $sth = $dbh->prepare("SELECT id, title, content, timestamp, parent, metatext, header from wae06_document WHERE id = ?");
         $sth->execute($.docid);
@@ -64,5 +65,6 @@ Portfolio - <% $.title %>
 
     } else {
         $m->redirect('/wae06/');
+    }
 }
 </%init>

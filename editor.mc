@@ -5,6 +5,7 @@
   has 'content' => (default => "<font face=Verdana> Bitte hier den Text eingeben.\n</font>\n");
   has 'metatext' => (default => "Kein Metatext eingegeben");
   has 'Save';
+  has 'Preview';
   has 'insert' => (default => 0);
   has 'parentid';
 </%class>
@@ -38,6 +39,7 @@ Dokument <% $.docid %> editieren
 
 
 <input type="hidden" name="insert" value="<% $.insert %>">
+
 
 <div class="form-group">
 <label for="docid">ID</label>
@@ -84,18 +86,23 @@ Dokument <% $.docid %> editieren
 </script>
 </div>
 
-<input type="submit" class="btn btn-primary btn-md" value="&Auml;nderungen speichern" name="Save">
-&nbsp;&nbsp;&nbsp;
-<input type="reset" class="btn btn-primary btn-md" value="&Auml;nderungen verwerfen" name="Cancel"> <!-- onClick="window.close()" -->
-
+<div class="form-group">
+<input type="submit" class="btn btn-primary btn-md" value="Vorschau anzeigen" name="Preview">
 </div>
+
+<div class="form-group">
+
+<input type="submit" class="btn btn-primary btn-md" value="&Auml;nderungen speichern" name="Save">
+
+<input type="reset" class="btn btn-primary btn-md" value="&Auml;nderungen verwerfen" name="Cancel"> <!-- onClick="window.close()" -->
+</div>
+</form>
+</div>
+
 <div class="col-lg-12" style="margin-top:5.0em;"></div>
 
 <div class="col-lg-1"></div>
 </div>
-
-
-
 
 
 <!-- Modal -->
@@ -133,6 +140,9 @@ $sth->execute();
 while (my $res = $sth->fetchrow_hashref()) {
   $docTitleAndIds{$res->{id}} = $res->{title};
   $alldocs .= "ID der Seite: " . $res->{id}  . " - Titel: " . $res->{title} . "<br />";
+}
+if ($.Preview){
+  $m->visit('/wae06/view', isPreview => 1, content => $.content, title => 'PREVIEW - ' . $.title, parentid => $.parentid, header => $.header, metatext => $.metatext );
 }
 
 if ($.Save) {
