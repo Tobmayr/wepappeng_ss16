@@ -66,11 +66,6 @@ Portfolio - <% $.title %>
         $.header($res->{header});
 
     } else {
-    # keine ID, neues Dokument erstellen
-    my $sth = $dbh->prepare("SELECT max(id) as maxdocid FROM wae06_document");
-    $sth->execute();
-    my $res = $sth->fetchrow_hashref();
-    $.docid($res->{maxdocid} + 1);
-    $.insert(1);
+        $m->redirect('/wae06/');
 }
 </%init>
