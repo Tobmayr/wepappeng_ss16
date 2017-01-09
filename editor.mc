@@ -182,7 +182,9 @@ if ($.Preview){
 }
 
 if($.Delete){
-    my $sth = $dbh->prepare("DELETE FROM wae06_document WHERE id = ?");
+     my $sth = $dbh->prepare("UPDATE `wae06_document` SET parent= ? where parent= ?");
+     $sth->execute($.parentid,$.docid);
+    $sth = $dbh->prepare("DELETE FROM wae06_document WHERE id = ?");
     $sth->execute($.docid);
     $m->go('/wae06/editor', infobox => '<div class="alert alert-success"><strong>Löschen erfolgreich!</strong> Die Seite mit der ID ' .  $.docid . ' wurde entfernt.</div>');
 }
