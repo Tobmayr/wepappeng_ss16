@@ -1,6 +1,6 @@
 <li class="dropdown">
          <a id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="#">
-             Menu <span class="caret"></span>
+             Men&uuml;<span class="caret"></span>
          </a>
          <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
 
