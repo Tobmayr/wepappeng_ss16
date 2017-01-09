@@ -14,10 +14,11 @@
         push(@l2s, $hr);
     }
     </%perl>>
-
+% if (scalar @l2s==0){
+    <li><a href="/wae06/view?docid=<% $l1->{id} %>"><% $l1->{title} %></a>
+% }else {
     <li class="dropdown-submenu">
-             <a tabindex="-1" href="/wae06/view?docid=<% $l1->{id} %>"><% $l1->{title} %></a>
-% if (scalar @l2s>0){
+             <a href="/wae06/view?docid=<% $l1->{id} %>"><% $l1->{title} %></a>
      <ul class="dropdown-menu">
 % foreach my $l2 (@l2s){
   <%perl>
@@ -29,9 +30,10 @@
             push(@l3s, $hr);
         }
     </%perl>>
-
-    <li class="dropdown-submenu"><a  href="/wae06/view?docid=<% $l2->{id} %>"><% $l2->{title} %></a>
-% if (scalar @l3s>0){
+% if (scalar @l3s==0){
+    <li><a href="/wae06/view?docid=<% $l2->{id} %>"><% $l2->{title} %></a>
+% } else {
+<li class="dropdown-submenu"><a  href="/wae06/view?docid=<% $l2->{id} %>"><% $l2->{title} %></a>
     <ul class="dropdown-menu">
 %    foreach my $l3 (@l3s){
     <li><a  href="/wae06/view?docid=<% $l3->{id} %>"><% $l3->{title} %></a></li>
