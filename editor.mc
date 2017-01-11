@@ -186,7 +186,6 @@ if ($.Preview){
 if ($.Save) {
 # Speichern wurde gedrückt...
   if ($.insert == 1) {
-    $m->visit('/wae06/database/insert?id')
   # Datensatz aus Formularfeldern in Datenbank einfügen
     my $sth = $dbh->prepare("INSERT INTO wae06_document (id,content,metatext,title,parent,header,design,timestamp) values (?,?,?,?,?,?,?,NOW())");
     $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid,$.header,$.design);
