@@ -120,8 +120,8 @@ Dokument <% $.docid %> editieren
 
 <div class="form-group">
 <input type="submit" class="btn btn-primary btn-md" value="Vorschau anzeigen" name="Preview">
+<a href="/wae06/database/delete?docid=<% $.docid %>&parentid=<% $.parentid %>"  class="btn btn-primary btn-md">Seite löschen</a>
 
-<input type="submit" class="btn btn-primary btn-md" value="Seite löschen" name="Delete">
 
 
 </div>
@@ -181,17 +181,12 @@ if ($.Preview){
   $m->visit('/wae06/view', isPreview => 1, content => $.content, title => 'PREVIEW - ' . $.title, parentid => $.parentid, header => $.header, metatext => $.metatext );
 }
 
-if($.Delete){
-     my $sth = $dbh->prepare("UPDATE `wae06_document` SET parent= ? where parent= ?");
-     $sth->execute($.parentid,$.docid);
-    $sth = $dbh->prepare("DELETE FROM wae06_document WHERE id = ?");
-    $sth->execute($.docid);
-    $m->go('/wae06/editor', infobox => '<div class="alert alert-success"><strong>Löschen erfolgreich!</strong> Die Seite mit der ID ' .  $.docid . ' wurde entfernt.</div>');
-}
+
 
 if ($.Save) {
 # Speichern wurde gedrückt...
   if ($.insert == 1) {
+    $m->visit('/wae06/database/insert?id')
   # Datensatz aus Formularfeldern in Datenbank einfügen
     my $sth = $dbh->prepare("INSERT INTO wae06_document (id,content,metatext,title,parent,header,design,timestamp) values (?,?,?,?,?,?,?,NOW())");
     $sth->execute($.docid,$.content,$.metatext,$.title,$.parentid,$.header,$.design);
