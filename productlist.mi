@@ -15,7 +15,7 @@
     use Data::Dumper;
     my $dbh = Ws16::DBI->dbh();
 
-    my $ps = $dbh->prepare("select id, title, header from wae06_document");
+    my $ps = $dbh->prepare("select id, title, header from wae06_document where parent = 0");
     $ps->execute();
 
     my @products;
