@@ -184,7 +184,7 @@ while (my $res = $sth->fetchrow_hashref()) {
   $alldocs .= "ID der Seite: " . $res->{id}  . " - Titel: " . $res->{title} . "<br />";
 }
 if ($.Preview){
-  $m->visit('/wae06/view', isPreview => 1, content => $.content, title => 'PREVIEW - ' . $.title, parentid => $.parentid, header => $.header, metatext => $.metatext );
+  $m->go('/wae06/view', isPreview => 1, content => $.content, title => 'PREVIEW - ' . $.title, parentid => $.parentid, header => $.header, metatext => $.metatext );
 }
 
 
