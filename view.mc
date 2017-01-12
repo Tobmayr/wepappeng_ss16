@@ -45,7 +45,7 @@ Portfolio - <% $.title %>
 % if (scalar @children>0) {
 <div class="col-lg-12 text-center"  style="margin-bottom:50px;">
 % foreach my $child (@children) {
-<a href="/wae06/view?docid=<% $child->{id} %>"><i class="fa <% $child->{header} %>"></i> <% $child->{title} %></a>
+&nbsp;&nbsp;&nbsp;<a href="/wae06/view?docid=<% $child->{id} %>"><i class="fa <% $child->{header} %>"></i> <% $child->{title} %></a>&nbsp;&nbsp;&nbsp;
 % }
 </div>
 % }
