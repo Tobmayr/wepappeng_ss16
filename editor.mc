@@ -77,15 +77,21 @@ Dokument <% $.docid %> editieren
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="margin-left:20px;">
   Alle verfügbaren Seiten inkl. IDs ansehen
 </button>
-<%doc>
-<%  $cgi->popup_menu(-name      =>'parentid',
-                       -values    => [ sort keys %docTitleAndIds ],
-                       -default   => $parentid,
-                       -labels    => \%docTitleAndIds)
-  %> aktuell: <% $docTitleAndIds{$parentid} %>
-</%doc></label>
+</label>
   <input type="text" name="parentid" class="form-control" value="<% $.parentid %>" size="3" />
 </div>
+
+
+
+
+<div class="form-group">
+<label for="metatext">Metadaten
+</label>
+  <input type="text" name="metatext" class="form-control" value="<% $.metatext %>" />
+</div>
+
+
+
 
 <div class="form-group">
 <label for="content">Seiteninhalt</label>
@@ -193,8 +199,8 @@ if ($.Save) {
     $.insert(0);
   } else {
   # Datensatz in Datenbank ändern
-    my $sth = $dbh->prepare("UPDATE wae06_document SET content = ?, title = ?, parent = ?, header = ?, design = ? WHERE id = ?");
-    $sth->execute($.content,$.title,$.parentid,$.header,$.design,$.docid);
+    my $sth = $dbh->prepare("UPDATE wae06_document SET content = ?, title = ?, parent = ?, metatext = ?, header = ?, design = ? WHERE id = ?");
+    $sth->execute($.content,$.title,$.parentid,$.metatext,$.header,$.design,$.docid);
     $msg = "Datensatz " . $.docid ." in DB ver&auml;ndert.".$sth->rows();
   }
 } elsif ($.docid) {
@@ -204,6 +210,7 @@ if ($.Save) {
   my $res = $sth->fetchrow_hashref();
   $.content($res->{content} || $.content);
   $.title($res->{title});
+  $.metatext($res->{metatext});
   $.parentid($res->{parent});
   $.header($res->{header});
   $.design($res->{design});
