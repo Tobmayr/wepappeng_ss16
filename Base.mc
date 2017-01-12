@@ -85,7 +85,7 @@
     <% inner() %>
 
 
-<aside class="bg-dark" style="margin-top:50px;">
+<aside class="bg-dark">
 <section id="footer" style="padding:0px;">
 <div class="row">
 <div class="col-lg-12 text-center">

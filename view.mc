@@ -28,11 +28,11 @@ Portfolio - <% $.title %>
 </header>
 
 
-<section id="content">
+<section id="content" class="<% $.design %>">
 <div class="container">
 <div class="row">
 
-<div class="col-lg-12 text-center <% $.design %>" style="margin-bottom:50px;">
+<div class="col-lg-12 text-center" style="margin-bottom:50px;">
 <i class="fa fa-4x <% $.header %> text-primary sr-icons"></i>
 
 </div>
